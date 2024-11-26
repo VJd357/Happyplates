@@ -88,19 +88,26 @@ class OpenAIClient:
 
 class CSVProcessor:
     @staticmethod
-    def process_images_in_folder(path, prompt_full_menu, client):
+    def process_images_in_folder(path, prompt_full_menu, client, progress_bar, progress_text):
         output_folder = f"{os.path.basename(path)}_output"
         os.makedirs(output_folder, exist_ok=True)
         
-        for filename in os.listdir(path):
-            if filename.endswith(('.png', '.jpg', '.jpeg')):
-                image_path = os.path.join(path, filename)
-                menu_df = client.process_image(image_path, prompt_full_menu)
-                if menu_df is not None:
-                    csv_filename = os.path.splitext(filename)[0] + '.csv'
-                    csv_path = os.path.join(output_folder, csv_filename)
-                    menu_df.to_csv(csv_path, index=False)
-                    print(f"Saved CSV for {filename} to {csv_path}")
+        image_files = [f for f in os.listdir(path) if f.endswith(('.png', '.jpg', '.jpeg'))]
+        total_files = len(image_files)
+        
+        for i, filename in enumerate(image_files):
+            image_path = os.path.join(path, filename)
+            menu_df = client.process_image(image_path, prompt_full_menu)
+            if menu_df is not None:
+                csv_filename = os.path.splitext(filename)[0] + '.csv'
+                csv_path = os.path.join(output_folder, csv_filename)
+                menu_df.to_csv(csv_path, index=False)
+                print(f"Saved CSV for {filename} to {csv_path}")
+            
+            # Update progress bar
+            progress_bar.progress((i + 1) / total_files)
+            progress_text.text(f"Processing {i + 1} of {total_files} images")
+        
         return output_folder
 
     @staticmethod
@@ -121,32 +128,36 @@ def main():
     api_key = st.text_input("Enter your OpenAI API key", type="password")
     
     if uploaded_file is not None and api_key:
-        # Save the uploaded file to a relative path
-        pdf_path = os.path.join("uploads", "uploaded_file.pdf")
-        os.makedirs("uploads", exist_ok=True)
-        with open(pdf_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        
-        pdf_processor = PDFProcessor(pdf_path)
-        path = pdf_processor.take_screenshots_of_menu_sections()
-        
-        if path is None:
-            st.error("Failed to process the PDF. Please check the file and try again.")
-            return
-        
-        prompt_full_menu = MenuPrompt.get_prompt_full_menu()
-        client = OpenAIClient(api_key=api_key)
-        
-        output_folder = CSVProcessor.process_images_in_folder(path, prompt_full_menu, client)
-        combined_df, combined_csv_path = CSVProcessor.combine_csvs(output_folder)
-        
-        st.dataframe(combined_df)
-        st.download_button(
-            label="Download CSV",
-            data=open(combined_csv_path, "rb").read(),
-            file_name=f"{os.path.basename(output_folder)}.csv",
-            mime="text/csv"
-        )
+        if st.button("Submit"):
+            # Save the uploaded file to a relative path
+            pdf_path = os.path.join("uploads", "uploaded_file.pdf")
+            os.makedirs("uploads", exist_ok=True)
+            with open(pdf_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            
+            pdf_processor = PDFProcessor(pdf_path)
+            path = pdf_processor.take_screenshots_of_menu_sections()
+            
+            if path is None:
+                st.error("Failed to process the PDF. Please check the file and try again.")
+                return
+            
+            prompt_full_menu = MenuPrompt.get_prompt_full_menu()
+            client = OpenAIClient(api_key=api_key)
+            
+            progress_text = st.empty()
+            progress_bar = st.progress(0)
+            
+            output_folder = CSVProcessor.process_images_in_folder(path, prompt_full_menu, client, progress_bar, progress_text)
+            combined_df, combined_csv_path = CSVProcessor.combine_csvs(output_folder)
+            
+            st.dataframe(combined_df)
+            st.download_button(
+                label="Download CSV",
+                data=open(combined_csv_path, "rb").read(),
+                file_name=f"{os.path.basename(output_folder)}.csv",
+                mime="text/csv"
+            )
 
 if __name__ == "__main__":
     main()
