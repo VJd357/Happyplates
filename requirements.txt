@@ -1,10 +1,5 @@
-fitz  # PyMuPDF
-os
-base64
-json
+fitz
 pandas
 openai
-yaml
+pyyaml
 streamlit
-prompt
-logging
