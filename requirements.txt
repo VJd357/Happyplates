@@ -1,0 +1,10 @@
+fitz  # PyMuPDF
+os
+base64
+json
+pandas
+openai
+yaml
+streamlit
+prompt
+logging
