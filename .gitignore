@@ -1,3 +1,9 @@
 myvenv/
 *.ipynb
 *.yaml
+*.pdf
+*.csv
+*.jpg
+*.json
+*.png
+*.txt
