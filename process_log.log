@@ -1,0 +1,344 @@
+2024-11-26 16:54:41,721 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-26 16:56:52,479 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-26 17:00:35,340 - INFO - Sending request to OpenAI API with prompt: 
+        Extract comprehensive menu information in JSON format from the given complete menu image.
+        The output JSON should be structured to include multiple sections, each with its own item type and corresponding items. Each section should be represented as follows:
+        - "item_type": The heading of the section, representing the category of items.
+        - "items": A list of items within this section, where each item contains:
+          - "item_name": The name of the item.
+          - "item_description": A detailed description of the item, if available.
+          - "item_price": The price of the item, if listed.
+          - "item_portion": The portion size of the item, if mentioned.
+
+        The JSON should be organized to facilitate easy conversion into a DataFrame format, allowing for clear differentiation between sections and their respective items.
+
+        Example:
+        [
+            {
+                "item_type": "OUR FAVORITE SANDWICHES",
+                "items": [
+                    {
+                        "item_name": "TIJUANA CHICKEN SANDWICH",
+                        "item_description": "Fresh breast of chicken, pounded thin, broiled & served with lettuce & tomato under melted Jalapeno cheese on a roll.",
+                        "item_price": "$5.75",
+                        "item_portion": null
+                    },
+                    {
+                        "item_name": "BASIC CHICKEN SANDWICH",
+                        "item_description": "Boneless breast of chicken, broiled plain and served on your choice of breads or hard roll.",
+                        "item_price": null,
+                        "item_portion": null
+                    }
+                ]
+            },
+            {
+                "item_type": "BEVERAGES",
+                "items": [
+                    {
+                        "item_name": "COFFEE",
+                        "item_description": "Freshly brewed coffee.",
+                        "item_price": "$2.00",
+                        "item_portion": "12 oz"
+                    },
+                    {
+                        "item_name": "ICED TEA",
+                        "item_description": "Chilled iced tea with lemon.",
+                        "item_price": "$2.50",
+                        "item_portion": "16 oz"
+                    }
+                ]
+            }
+        ]
+         and image: 2_George_St._Restaurant_&_Bar/menu_section_page_1.png
+2024-11-26 17:00:37,851 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-26 17:00:37,855 - INFO - Received response content: I'm unable to extract information from the image. However, if you provide the menu details, I can help format it into the desired JSON structure.
+2024-11-26 17:00:37,857 - ERROR - JSONDecodeError: Expecting value: line 1 column 1 (char 0) - JSON string: able to extract information from the image. However, if you provide the menu details, I can help format it into the desired JSON structure
+2024-11-26 17:00:37,869 - INFO - Sending request to OpenAI API with prompt: 
+        Extract comprehensive menu information in JSON format from the given complete menu image.
+        The output JSON should be structured to include multiple sections, each with its own item type and corresponding items. Each section should be represented as follows:
+        - "item_type": The heading of the section, representing the category of items.
+        - "items": A list of items within this section, where each item contains:
+          - "item_name": The name of the item.
+          - "item_description": A detailed description of the item, if available.
+          - "item_price": The price of the item, if listed.
+          - "item_portion": The portion size of the item, if mentioned.
+
+        The JSON should be organized to facilitate easy conversion into a DataFrame format, allowing for clear differentiation between sections and their respective items.
+
+        Example:
+        [
+            {
+                "item_type": "OUR FAVORITE SANDWICHES",
+                "items": [
+                    {
+                        "item_name": "TIJUANA CHICKEN SANDWICH",
+                        "item_description": "Fresh breast of chicken, pounded thin, broiled & served with lettuce & tomato under melted Jalapeno cheese on a roll.",
+                        "item_price": "$5.75",
+                        "item_portion": null
+                    },
+                    {
+                        "item_name": "BASIC CHICKEN SANDWICH",
+                        "item_description": "Boneless breast of chicken, broiled plain and served on your choice of breads or hard roll.",
+                        "item_price": null,
+                        "item_portion": null
+                    }
+                ]
+            },
+            {
+                "item_type": "BEVERAGES",
+                "items": [
+                    {
+                        "item_name": "COFFEE",
+                        "item_description": "Freshly brewed coffee.",
+                        "item_price": "$2.00",
+                        "item_portion": "12 oz"
+                    },
+                    {
+                        "item_name": "ICED TEA",
+                        "item_description": "Chilled iced tea with lemon.",
+                        "item_price": "$2.50",
+                        "item_portion": "16 oz"
+                    }
+                ]
+            }
+        ]
+         and image: 2_George_St._Restaurant_&_Bar/menu_section_page_2.png
+2024-11-26 17:00:55,802 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-26 17:00:55,806 - INFO - Received response content: Here’s the comprehensive menu information extracted from the provided menu image, structured in JSON format:
+
+```json
+[
+    {
+        "item_type": "BREAKFAST",
+        "items": [
+            {
+                "item_name": "Fresh Squeezed Orange or Grapefruit Juice",
+                "item_description": null,
+                "item_price": "$1.50",
+                "item_portion": "8 oz"
+            },
+            {
+                "item_name": "Apple, Tomato or Pineapple Juice",
+                "item_description": null,
+                "item_price": "$1.75",
+                "item_portion": "8 oz"
+            },
+            {
+                "item_name": "Apple or Peanut Butter French Toast",
+                "item_description": null,
+                "item_price": "$2.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Mixed Fresh Fruit Salad",
+                "item_description": null,
+                "item_price": "$4.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Two Eggs Any Style",
+                "item_description": "With choice of Bacon, Ham or Sausage with Home Fries, Toast or Muffin.",
+                "item_price": "$3.95",
+                "item_portion": null
+            }
+        ]
+    },
+    {
+        "item_type": "LUNCH",
+        "items": [
+            {
+                "item_name": "Soup of the Day",
+                "item_description": null,
+                "item_price": "$1.95 cup / $2.95 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "New England Seafood Chowder",
+                "item_description": null,
+                "item_price": "$2.75 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Tuna Salad",
+                "item_description": null,
+                "item_price": "$7.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Deep Fried Calamari",
+                "item_description": "Served with Marinara and Two Dipping Sauces.",
+                "item_price": "$4.75",
+                "item_portion": null
+            },
+            {
+                "item_name": "Steamed Mussels with Tartar Sauce",
+                "item_description": null,
+                "item_price": "$5.95",
+                "item_portion": null
+            }
+        ]
+    },
+    {
+        "item_type": "DINNER",
+        "items": [
+            {
+                "item_name": "Soup of the Day",
+                "item_description": null,
+                "item_price": "$1.95 cup / $2.95 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "New England Seafood Chowder",
+                "item_description": null,
+                "item_price": "$7.75 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Tuna Salad",
+                "item_description": null,
+                "item_price": "$10.00",
+                "item_portion": null
+            },
+            {
+                "item_name": "Deep Fried Eggplant and Mozzarella Sticks",
+                "item_description": "Served with Marinara and Two Dipping Sauces.",
+                "item_price": "$4.75",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Vegetable Tempura",
+                "item_description": "Served with Dipping Sauce.",
+                "item_price": "$7.50",
+                "item_portion": null
+            }
+        ]
+    }
+]
+```
+
+The menu items have been organized by sections with appropriate attributes as requested.
+2024-11-26 17:00:55,823 - INFO - JSON content: [
+    {
+        "item_type": "BREAKFAST",
+        "items": [
+            {
+                "item_name": "Fresh Squeezed Orange or Grapefruit Juice",
+                "item_description": null,
+                "item_price": "$1.50",
+                "item_portion": "8 oz"
+            },
+            {
+                "item_name": "Apple, Tomato or Pineapple Juice",
+                "item_description": null,
+                "item_price": "$1.75",
+                "item_portion": "8 oz"
+            },
+            {
+                "item_name": "Apple or Peanut Butter French Toast",
+                "item_description": null,
+                "item_price": "$2.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Mixed Fresh Fruit Salad",
+                "item_description": null,
+                "item_price": "$4.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Two Eggs Any Style",
+                "item_description": "With choice of Bacon, Ham or Sausage with Home Fries, Toast or Muffin.",
+                "item_price": "$3.95",
+                "item_portion": null
+            }
+        ]
+    },
+    {
+        "item_type": "LUNCH",
+        "items": [
+            {
+                "item_name": "Soup of the Day",
+                "item_description": null,
+                "item_price": "$1.95 cup / $2.95 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "New England Seafood Chowder",
+                "item_description": null,
+                "item_price": "$2.75 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Tuna Salad",
+                "item_description": null,
+                "item_price": "$7.50",
+                "item_portion": null
+            },
+            {
+                "item_name": "Deep Fried Calamari",
+                "item_description": "Served with Marinara and Two Dipping Sauces.",
+                "item_price": "$4.75",
+                "item_portion": null
+            },
+            {
+                "item_name": "Steamed Mussels with Tartar Sauce",
+                "item_description": null,
+                "item_price": "$5.95",
+                "item_portion": null
+            }
+        ]
+    },
+    {
+        "item_type": "DINNER",
+        "items": [
+            {
+                "item_name": "Soup of the Day",
+                "item_description": null,
+                "item_price": "$1.95 cup / $2.95 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "New England Seafood Chowder",
+                "item_description": null,
+                "item_price": "$7.75 bowl",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Tuna Salad",
+                "item_description": null,
+                "item_price": "$10.00",
+                "item_portion": null
+            },
+            {
+                "item_name": "Deep Fried Eggplant and Mozzarella Sticks",
+                "item_description": "Served with Marinara and Two Dipping Sauces.",
+                "item_price": "$4.75",
+                "item_portion": null
+            },
+            {
+                "item_name": "Grilled Vegetable Tempura",
+                "item_description": "Served with Dipping Sauce.",
+                "item_price": "$7.50",
+                "item_portion": null
+            }
+        ]
+    }
+]
+2024-11-26 17:00:55,860 - INFO - DataFrame:                                     item_name  ...  item_type
+0   Fresh Squeezed Orange or Grapefruit Juice  ...  BREAKFAST
+1            Apple, Tomato or Pineapple Juice  ...  BREAKFAST
+2         Apple or Peanut Butter French Toast  ...  BREAKFAST
+3                     Mixed Fresh Fruit Salad  ...  BREAKFAST
+4                          Two Eggs Any Style  ...  BREAKFAST
+5                             Soup of the Day  ...      LUNCH
+6                 New England Seafood Chowder  ...      LUNCH
+7                          Grilled Tuna Salad  ...      LUNCH
+8                         Deep Fried Calamari  ...      LUNCH
+9           Steamed Mussels with Tartar Sauce  ...      LUNCH
+10                            Soup of the Day  ...     DINNER
+11                New England Seafood Chowder  ...     DINNER
+12                         Grilled Tuna Salad  ...     DINNER
+13  Deep Fried Eggplant and Mozzarella Sticks  ...     DINNER
+14                  Grilled Vegetable Tempura  ...     DINNER
+
+[15 rows x 5 columns]

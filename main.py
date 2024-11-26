@@ -43,6 +43,9 @@ class OpenAIClient:
     def process_image(self, image_path, prompt_full_menu):
         base64_image = self.encode_image(image_path)
         try:
+            # Log the request details
+            logging.info(f"Sending request to OpenAI API with prompt: {prompt_full_menu} and image: {image_path}")
+
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
@@ -63,22 +66,38 @@ class OpenAIClient:
                     }
                 ],
             )
+
+            # Log the full response content
             response_content = response.choices[0].message.content
+            logging.info(f"Received response content: {response_content}")
+
+            # Check if response_content is empty
+            if not response_content:
+                logging.error("Received empty response content from OpenAI API.")
+                return None
+
             json_start = response_content.find('```json') + len('```json')
             json_end = response_content.rfind('```')
             json_string = response_content[json_start:json_end].strip()
+
+            # Check if json_string is empty
+            if not json_string:
+                logging.error("Extracted JSON string is empty. Check if the response format has changed.")
+                return None
+
             menu_data = json.loads(json_string)
             menu_df = pd.json_normalize(menu_data, record_path=['items'], meta=['item_type'])
 
-            # Log the prompt, JSON content, and DataFrame
-            logging.info(f"Processed image: {image_path}")
-            logging.info(f"Prompt used: {prompt_full_menu}")
+            # Log the JSON content and DataFrame
             logging.info(f"JSON content: {json_string}")
             logging.info(f"DataFrame: {menu_df}")
 
             return menu_df
         except OpenAIError as e:
-            print(f"An error occurred: {e}")
+            logging.error(f"OpenAIError occurred: {e}")
+            return None
+        except json.JSONDecodeError as e:
+            logging.error(f"JSONDecodeError: {e} - JSON string: {json_string}")
             return None
 
     @staticmethod
@@ -130,7 +149,8 @@ def main():
     if uploaded_file is not None and api_key:
         if st.button("Submit"):
             # Save the uploaded file to a relative path
-            pdf_path = os.path.join("uploads", "uploaded_file.pdf")
+            pdf_name = uploaded_file.name
+            pdf_path = os.path.join("uploads", pdf_name)
             os.makedirs("uploads", exist_ok=True)
             with open(pdf_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
