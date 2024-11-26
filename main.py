@@ -121,11 +121,18 @@ def main():
     api_key = st.text_input("Enter your OpenAI API key", type="password")
     
     if uploaded_file is not None and api_key:
-        with open("uploaded_file.pdf", "wb") as f:
+        # Save the uploaded file to a relative path
+        pdf_path = os.path.join("uploads", "uploaded_file.pdf")
+        os.makedirs("uploads", exist_ok=True)
+        with open(pdf_path, "wb") as f:
             f.write(uploaded_file.getbuffer())
         
-        pdf_processor = PDFProcessor("uploaded_file.pdf")
+        pdf_processor = PDFProcessor(pdf_path)
         path = pdf_processor.take_screenshots_of_menu_sections()
+        
+        if path is None:
+            st.error("Failed to process the PDF. Please check the file and try again.")
+            return
         
         prompt_full_menu = MenuPrompt.get_prompt_full_menu()
         client = OpenAIClient(api_key=api_key)
