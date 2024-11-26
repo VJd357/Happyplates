@@ -1,4 +1,4 @@
-fitz
+PyMuPDF
 pandas
 openai
 pyyaml
