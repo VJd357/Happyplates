@@ -1,6 +1,17 @@
 class MenuPrompt:
     @staticmethod
     def get_prompt_full_menu():
+        """
+        Generate a prompt for extracting comprehensive menu information in JSON format.
+
+        This function returns a formatted string that instructs the extraction of menu data
+        from a complete menu image. The expected output is a JSON structure with multiple sections,
+        each containing an item type and corresponding items. Each item includes details such as
+        name, description, price, and portion size.
+
+        Returns:
+        - str: A formatted string containing the prompt for JSON extraction of menu information.
+        """
         return f"""
         Extract comprehensive menu information in JSON format from the given complete menu image.
         The output JSON should be structured to include multiple sections, each with its own item type and corresponding items. Each section should be represented as follows:
@@ -54,6 +65,16 @@ class MenuPrompt:
 
     @staticmethod
     def get_system_prompt():
+        """
+        Generate a system prompt describing the role and expertise of the data analyst.
+
+        This function returns a string that outlines the expertise and responsibilities of a
+        data analyst specializing in the restaurant industry. The prompt emphasizes the task
+        of extracting and organizing menu information into a structured JSON format.
+
+        Returns:
+        - str: A string describing the role and expertise of the data analyst.
+        """
         return (
             "You are a highly skilled data analyst with over 30 years of experience, "
             "specializing in the restaurant industry. Your extensive expertise includes "
